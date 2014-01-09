@@ -6,7 +6,7 @@ Created on 8 Jan 2014
 
 class Kaart(object):
 
-    def __init__(self, soort, nummer):
+    def __init__(self, nummer, soort):
         self.nummer = nummer
         self.soort = soort
         

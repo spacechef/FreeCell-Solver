@@ -33,6 +33,6 @@ class Bord(object):
         bana = zip(self.rij_met_kolommen[0].rij_met_kaarten, self.rij_met_kolommen[1].rij_met_kaarten, self.rij_met_kolommen[2].rij_met_kaarten,self.rij_met_kolommen[3].rij_met_kaarten,self.rij_met_kolommen[4].rij_met_kaarten,self.rij_met_kolommen[5].rij_met_kaarten, self.rij_met_kolommen[6].rij_met_kaarten, self.rij_met_kolommen[7].rij_met_kaarten)
         for rij in bana:
             for woord in rij:
-                print '[{:3}]'.format(woord),
+                print '[{:2}{:1}]'.format(woord.nummer, woord.soort),
             print '\n'
         
