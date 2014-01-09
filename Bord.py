@@ -30,9 +30,9 @@ class Bord(object):
         print 58*'-'
         print '[{0[0]}] [{0[1]}] [{0[2]}] [{0[3]}]'.format(self.freecells) + ' X ' + '[{0[0]}] [{0[1]}] [{0[2]}] [{0[3]}]'.format(self.doelcellen)
         print 58*'-'
-        bana = zip(self.rij_met_kolommen[0].rij_met_kaarten, self.rij_met_kolommen[1].rij_met_kaarten, self.rij_met_kolommen[2].rij_met_kaarten,self.rij_met_kolommen[3].rij_met_kaarten,self.rij_met_kolommen[4].rij_met_kaarten,self.rij_met_kolommen[5].rij_met_kaarten, self.rij_met_kolommen[6].rij_met_kaarten, self.rij_met_kolommen[7].rij_met_kaarten)
-        for rij in bana:
-            for woord in rij:
-                print '[{:2}{:1}]'.format(woord.nummer, woord.soort),
+        zipped_kolommen = zip(self.rij_met_kolommen[0].rij_met_kaarten, self.rij_met_kolommen[1].rij_met_kaarten, self.rij_met_kolommen[2].rij_met_kaarten,self.rij_met_kolommen[3].rij_met_kaarten,self.rij_met_kolommen[4].rij_met_kaarten,self.rij_met_kolommen[5].rij_met_kaarten, self.rij_met_kolommen[6].rij_met_kaarten, self.rij_met_kolommen[7].rij_met_kaarten)
+        for rij in zipped_kolommen:
+            for kaart in rij:
+                print '[{:2}{:1}]'.format(kaart.nummer, kaart.soort),
             print '\n'
         
