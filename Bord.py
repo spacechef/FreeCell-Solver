@@ -26,15 +26,16 @@ class Bord(object):
         self.rij_met_kolommen[kolom].voeg_toe(kaart)
     
     def druk_af(self):
-        print '{:^29}'.format('Freecells'), '{:^29}'.format('Doelcellen')
-        print 58*'-'
-        print '[{0[0]}] [{0[1]}] [{0[2]}] [{0[3]}]'.format(self.freecells) + ' X ' + '[{0[0]}] [{0[1]}] [{0[2]}] [{0[3]}]'.format(self.doelcellen)
-        print 58*'-'
+        print '{:^30}'.format('Freecells'),'|' '{:^30}'.format('Doelcellen')
+        print 60*'-'
+        print '[{0[0]}]  [{0[1]}]  [{0[2]}]  [{0[3]}]'.format(self.freecells) + ' | ' + '[{0[0]}] [{0[1]}] [{0[2]}] [{0[3]}]'.format(self.doelcellen)
+        print 60*'-'
         mapped_kolommen = map(None, self.rij_met_kolommen[0].rij_met_kaarten, self.rij_met_kolommen[1].rij_met_kaarten, self.rij_met_kolommen[2].rij_met_kaarten,self.rij_met_kolommen[3].rij_met_kaarten,self.rij_met_kolommen[4].rij_met_kaarten,self.rij_met_kolommen[5].rij_met_kaarten, self.rij_met_kolommen[6].rij_met_kaarten, self.rij_met_kolommen[7].rij_met_kaarten)
         for kolom in mapped_kolommen:
             for kaart in kolom:
                 if kaart == None:
-                    print '[   ]',
+                    print ' [   ] ',
                 else: 
-                    print '[{:2}{:1}]'.format(kaart.nummer, kaart.soort),
+                    print ' [{:2}{:1}] '.format(kaart.nummer, kaart.soort),
             print '\n'
+        print 60*'-'

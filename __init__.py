@@ -11,7 +11,7 @@ bord = Bord()
 kaartspel = KaartSpel()
 bord.maak_kolommen()
 kaartspel.maak()
-# kaartspel.schud()
+kaartspel.schud()
 
 
 def deel_kaarten():
