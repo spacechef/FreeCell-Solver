@@ -7,16 +7,16 @@ class KaartSpel(object):
         self.kaartspel = []
 
     def maak(self):
-        for i in range(1,13):
+        for i in range(1,14):
             kaart = Kaart(i, "R")
             self.voeg_toe(kaart)
-        for i in range(1,13):
+        for i in range(1,14):
             kaart = Kaart(i, "H")
             self.voeg_toe(kaart)
-        for i in range(1,13):
+        for i in range(1,14):
             kaart = Kaart(i, "S")
             self.voeg_toe(kaart)
-        for i in range(1,13):
+        for i in range(1,14):
             kaart = Kaart(i, "K")
             self.voeg_toe(kaart)
 
