@@ -13,6 +13,9 @@ class Kolom(object):
     def voeg_toe(self, kaart):
         self.rij_met_kaarten.append(kaart)
         self.aantal += 1
+    
+    def verwijder_kaart(self, kaart):
+        self.rij_met_kaarten.remove(kaart)
 #     
 #     def druk_af(self):
 #         teller = 0
