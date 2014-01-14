@@ -40,7 +40,7 @@ def speel_kaart():
             # zo ja -> kijk een niveau dieper
 
     for kolom in bord.rij_met_kolommen: #de freecell checker klopt niet want hij kijkt niet of de kaart daadwerkelijk gespeeld kan worden dus blijft hij altijd tot 4 diepte kijken ipv of de kaat gespeeld kan worden
-        speelbare_kaarten = kolom.rij_met_kaarten[-aantal_freecells:] #deze moet in per beurt opgehoogd worden
+        speelbare_kaarten = kolom.kaarten[-aantal_freecells:] #deze moet in per beurt opgehoogd worden
 
         for kaart in speelbare_kaarten:
             if bord.kaart_kan_naar_doelcel(kaart):
@@ -64,13 +64,13 @@ def freecel_naar_doelcel(): #probeersel
 
 
 def zet_kaarten_goed(kaart, kolom):
-    index = kolom.rij_met_kaarten.index(kaart)
-    for kaart in kolom.rij_met_kaarten:
+    index = kolom.kaarten.index(kaart)
+    for kaart in kolom.kaarten:
         print kaart.nummer, kaart.soort
     print index
-#     del kolom.rij_met_kaarten[index]
-    for kaart in kolom.rij_met_kaarten: #haalt de laatste kaart nog niet weg
-        if kolom.rij_met_kaarten.index(kaart) > index: #index positie van bovenliggende kaart veranderd doordat er een entry verwijderd word
+#     del kolom.kaarten[index]
+    for kaart in kolom.kaarten: #haalt de laatste kaart nog niet weg
+        if kolom.kaarten.index(kaart) > index: #index positie van bovenliggende kaart veranderd doordat er een entry verwijderd word
             bord.voeg_toe_aan_freecel(kaart)
             kolom.verwijder_kaart(kaart)
 
