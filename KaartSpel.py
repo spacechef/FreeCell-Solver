@@ -25,3 +25,5 @@ class KaartSpel(object):
 
     def schud(self):
         shuffle(self.kaartspel)
+
+# banaatje :)
