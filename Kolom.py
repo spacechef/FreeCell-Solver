@@ -16,9 +16,3 @@ class Kolom(object):
 
     def verwijder_kaart(self, kaart):
         self.kaarten.remove(kaart)
-#
-#     def druk_af(self):
-#         teller = 0
-#         for i in self.rij_met_kaarten:
-#             print '[{0[teller]}]'.format(i)
-#
