@@ -14,7 +14,7 @@ class Bord(object):
 
     def __init__(self):
         self.aantal_kolommen = 8
-        self.rij_met_kolommen = []
+        self.kolommen = []
         self.aantal_freecells = 4
         self.freecells = []
         self.aantal_doelcellen = 4
@@ -35,10 +35,7 @@ class Bord(object):
     def maak_kolommen(self):
         for aantal_kolommen in range(self.aantal_kolommen):
             kolom = Kolom()
-            self.rij_met_kolommen.append(kolom)
-
-    def voeg_toe_aan_kolom(self, kaart, kolom):
-        self.rij_met_kolommen[kolom].voeg_toe(kaart)
+            self.kolommen.append(kolom)
 
     def kaart_kan_naar_doelcel(self, kaart):
         for doelcel in self.doelcellen:
@@ -81,7 +78,7 @@ class Bord(object):
         for kolom in self.doelcellen:
             print '[{:2}{:1}] '.format(kolom.kaarten[-1].nummer, kolom.kaarten[-1].soort),
         print '\n' + 60*'-'
-        mapped_kolommen = map(None, self.rij_met_kolommen[0].kaarten, self.rij_met_kolommen[1].kaarten, self.rij_met_kolommen[2].kaarten,self.rij_met_kolommen[3].kaarten,self.rij_met_kolommen[4].kaarten,self.rij_met_kolommen[5].kaarten, self.rij_met_kolommen[6].kaarten, self.rij_met_kolommen[7].kaarten)
+        mapped_kolommen = map(None, self.kolommen[0].kaarten, self.kolommen[1].kaarten, self.kolommen[2].kaarten,self.kolommen[3].kaarten,self.kolommen[4].kaarten,self.kolommen[5].kaarten, self.kolommen[6].kaarten, self.kolommen[7].kaarten)
         for kolom in mapped_kolommen:
             for kaart in kolom:
                 if kaart == None:

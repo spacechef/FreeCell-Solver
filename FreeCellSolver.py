@@ -19,7 +19,7 @@ def deel_kaarten():
     for kaart in kaartspel.kaartspel:
         if teller == 8:
             teller = 0
-        bord.rij_met_kolommen[teller].voeg_toe(kaart)
+        bord.kolommen[teller].voeg_toe(kaart)
         teller += 1
 
 def bepaal_aantal_freecells():
@@ -39,7 +39,7 @@ def speel_kaart():
         # zo nee -> kijk of het aantal freecells (lege kolommen + freecells) groter is dan de teller
             # zo ja -> kijk een niveau dieper
 
-    for kolom in bord.rij_met_kolommen: #de freecell checker klopt niet want hij kijkt niet of de kaart daadwerkelijk gespeeld kan worden dus blijft hij altijd tot 4 diepte kijken ipv of de kaat gespeeld kan worden
+    for kolom in bord.kolommen: #de freecell checker klopt niet want hij kijkt niet of de kaart daadwerkelijk gespeeld kan worden dus blijft hij altijd tot 4 diepte kijken ipv of de kaat gespeeld kan worden
         speelbare_kaarten = kolom.kaarten[-aantal_freecells:] #deze moet in per beurt opgehoogd worden
 
         for kaart in speelbare_kaarten:
