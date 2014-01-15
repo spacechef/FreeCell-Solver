@@ -22,58 +22,39 @@ class Bord(object):
 
     def maak_doel_en_freecellen(self):
         for aantal_freecells in range(self.aantal_freecells):
-            freecell = Kolom()
-            self.freecells.append(freecell)
-            freecell.voeg_toe(Kaart(0, 'L'))
+            self.freecells.append(Kaart(0, 'L'))
 
         for aantal_doelcellen in range(self.aantal_doelcellen):
             doelcel = Kolom()
             self.doelcellen.append(doelcel)
-            kaart = Kaart(0, 'L')
-            doelcel.voeg_toe(kaart)
+            doelcel.voeg_toe(Kaart(0,'L'))
 
     def maak_kolommen(self):
         for aantal_kolommen in range(self.aantal_kolommen):
             kolom = Kolom()
             self.kolommen.append(kolom)
-
-    def kaart_kan_naar_doelcel(self, kaart):
-        for doelcel in self.doelcellen:
-            if kaart.nummer == doelcel.kaarten[-1].nummer + 1 and kaart.soort == doelcel.kaarten[-1].soort:
-                return True
-            elif kaart.nummer == doelcel.kaarten[-1].nummer + 1 and doelcel.kaarten[-1].soort == 'L':
-                return True
-
-    def kaart_kan_naar_freecel(self, kaart):
-        for freecel in self.freecells:
-            if kaart.nummer == freecel.kaarten[-1].nummer + 1 and kaart.soort == freecel.kaarten[-1].soort:
-                return True
-            elif kaart.nummer == freecel.kaarten[-1].nummer + 1 and freecel.kaarten[-1].soort == 'L':
-                return True
-
-    def voeg_toe_aan_doelcel(self, kaart):
+    
+    def deel_kaarten(self, kaartspel):
         teller = 0
-        for doelcel in self.doelcellen:
-            if doelcel.kaarten[-1].nummer == 0 or kaart.nummer == doelcel.kaarten[-1].nummer + 1 and kaart.soort == doelcel.kaarten[-1].soort: #hier moet soortcheck bij
-                doelcel.voeg_toe(kaart)
-                break
-            else:
-                teller +=1
+        for kaart in kaartspel.kaartspel:
+            if teller == 8:
+                teller = 0
+            self.kolommen[teller].voeg_toe(kaart)
+            teller += 1
+    
+    def geef_aantal_freecells(self):
+        aantal_freecells = 0
+        for kaart in self.freecells:
+            if kaart.nummer == 0:
+                aantal_freecells += 1
 
-    def voeg_toe_aan_freecel(self, kaart):
-        teller = 0
-        for freecell in self.freecells:
-            if freecell.kaarten[-1].nummer == 0 or kaart.nummer == freecell.kaarten[-1].nummer + 1 and kaart.soort == freecell.kaarten[-1].soort: #hier moet soortcheck bij
-                freecell.voeg_toe(kaart)
-                break
-            else:
-                teller += 1
-
+        return aantal_freecells
+    
     def druk_af(self):
         print '{:^30}'.format('Freecells'),'|' '{:^30}'.format('Doelcellen')
         print 60*'-'
-        for kolom in self.freecells:
-            print '[{:2}{:1}] '.format(kolom.kaarten[-1].nummer, kolom.kaarten[-1].soort),
+        for freecell in self.freecells:
+            print '[{:2}{:1}] '.format(freecell.nummer, freecell.soort),
         print '{:^7}'.format('|'),
         for kolom in self.doelcellen:
             print '[{:2}{:1}] '.format(kolom.kaarten[-1].nummer, kolom.kaarten[-1].soort),
