@@ -50,6 +50,14 @@ class Bord(object):
 
         return aantal_freecells
     
+    def vind_kolom_en_kaart(self, gezochte_kaart):
+        if gezochte_kaart is not None:
+            for kolom in self.kolommen:
+                for kaart in kolom.kaarten:
+                    if gezochte_kaart == kaart:
+                        return(kolom, kaart)
+        
+    
     def druk_af(self):
         print '{:^30}'.format('Freecells'),'|' '{:^30}'.format('Doelcellen')
         print 60*'-'

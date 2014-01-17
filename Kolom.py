@@ -16,3 +16,8 @@ class Kolom(object):
 
     def verwijder_kaart(self, kaart):
         self.kaarten.remove(kaart)
+        
+    def verwijder(self, te_verwijderen_kaart):
+        for kaart in self.kaarten:
+            if kaart.nummer == te_verwijderen_kaart.nummer and kaart.soort == te_verwijderen_kaart.soort:
+                self.kaarten.remove(kaart)
