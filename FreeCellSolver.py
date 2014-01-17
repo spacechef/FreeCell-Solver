@@ -17,24 +17,29 @@ bord.deel_kaarten(kaartspel)
 bord.druk_af()
 
 def geef_beschikbare_kaarten(diepte):
-    beschikbaree_kaarten = []
+    beschikbare_kaarten = []
     for kolom in bord.kolommen:
         print len(kolom.kaarten)
         for level in range(diepte):
             if level < len(kolom.kaarten):
-                beschikbaree_kaarten.append(kolom.kaarten[-1 - level]) #deze moet in per beurt opgehoogd worden
+                beschikbare_kaarten.append(kolom.kaarten[-1 - level]) #deze moet in per beurt opgehoogd worden
     beschikbare_kaarten.extend(bord.freecells)
-    return speelbare_kaarten
+    return beschikbare_kaarten
 
 hallo = geef_beschikbare_kaarten(1 + bord.geef_aantal_freecells())
 
-for kaart in hallo:
-    if kaart.kan_naar_een_doelcel(bord.doelcellen):
-        print kaart.nummer, kaart.soort
-        print 'banatje'
-    else:
-        print 'doei'
 
+
+for kaart in hallo:
+    waarde = 0
+#     if kaart.kan_naar_een_doelcel(bord.doelcellen):
+#         kaart.verplaats_naar_een_doelcel
+#          waarde += 50
+    if kaart.kan_naar_een_kolom(bord.kolommen):
+        kaart.verplaats_naar_kolom(bord.kolommen)
+#         waarde += 20
+        bord.druk_af
+    
 
 
 # def speel_kaart():
