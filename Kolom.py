@@ -21,3 +21,4 @@ class Kolom(object):
         for kaart in self.kaarten:
             if kaart.nummer == te_verwijderen_kaart.nummer and kaart.soort == te_verwijderen_kaart.soort:
                 self.kaarten.remove(kaart)
+                return True

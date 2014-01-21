@@ -22,7 +22,8 @@ class Bord(object):
 
     def maak_doel_en_freecellen(self):
         for aantal_freecells in range(self.aantal_freecells):
-            self.freecells.append(Kaart(0, 'L'))
+            kaart = Kaart(0, 'L')
+            self.freecells.append(kaart)
 
         for aantal_doelcellen in range(self.aantal_doelcellen):
             doelcel = Kolom()
@@ -47,8 +48,17 @@ class Bord(object):
         for kaart in self.freecells:
             if kaart.nummer == 0:
                 aantal_freecells += 1
+        for kolom in self.kolommen:
+            if len(kolom.kaarten) == 0:
+                aantal_freecells += 1
 
         return aantal_freecells
+    
+    def geef_aantal_kaarten_op_het_bord(self):
+        aantal_kaarten_op_het_bord = 0       
+        for kolom in self.kolommen:
+            aantal_kaarten_op_het_bord += kolom.aantal
+        aantal_kaarten_op_het_bord += self.geef_aantal_freecells()
     
     def vind_kolom_en_kaart(self, gezochte_kaart):
         if gezochte_kaart is not None:
@@ -56,9 +66,27 @@ class Bord(object):
                 for kaart in kolom.kaarten:
                     if gezochte_kaart == kaart:
                         return(kolom, kaart)
-        
+    
+    def verwijder(self, te_verwijderen_kaart, vorige_kolom):
+        for kolom in self.kolommen:
+            if kolom == vorige_kolom:
+                kolom.verwijder(te_verwijderen_kaart)
+
+    def verwijder_uit_freecel(self, te_verwijderen_kaart):
+        teller = 0
+        for freecel in self.freecells:
+            if te_verwijderen_kaart.nummer == freecel.nummer and te_verwijderen_kaart.soort == freecel.soort:
+                self.freecells[teller] = Kaart(0, 'L')
+            else:
+                teller += 1
+    def geef_aantal_weggespeelde_kaarten(self):
+        aantal_weggespeelde_kaarten = 0
+        for doelcel in self.doelcellen:
+            aantal_weggespeelde_kaarten += doelcel.aantal 
+        return aantal_weggespeelde_kaarten - 4
     
     def druk_af(self):
+        print 60*'-'
         print '{:^30}'.format('Freecells'),'|' '{:^30}'.format('Doelcellen')
         print 60*'-'
         for freecell in self.freecells:
