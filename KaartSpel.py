@@ -51,9 +51,10 @@ class KaartSpel(object):
         self.voeg_toe(Kaart(1, "K"))
 
         
-
+    #voegt een kaart toe aan zichzelf
     def voeg_toe(self, kaart):
         self.kaartspel.append(kaart)
-
+    
+    #schud de kaarten in self.kaartspel
     def schud(self):
         shuffle(self.kaartspel)
