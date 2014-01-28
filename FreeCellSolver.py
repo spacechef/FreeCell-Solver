@@ -10,9 +10,8 @@ Gemaakt op 08/01/2014
 bord = Bord()
 kaartspel = KaartSpel()
 bord.maak_kolommen()
-kaartspel.maak()
-# kaartspel.maak_oplosbaar_spel()
-kaartspel.schud()
+seed = int(raw_input('Voer het gewenste spel in (tussen de 1 en de 11982): '))
+kaartspel.maak(seed)
 bord.maak_doel_en_freecellen()
 bord.deel_kaarten(kaartspel)
 bord.druk_af()
@@ -22,7 +21,7 @@ def geef_beschikbare_kaarten(diepte):
     beschikbare_kaarten = []
     for kolom in bord.kolommen:
         for level in range(diepte):
-            if level < len(kolom.kaarten):
+            if level < kolom.aantal:
                 beschikbare_kaarten.append(kolom.kaarten[-1 - level])
     beschikbare_kaarten.extend(bord.freecells)
     return beschikbare_kaarten
