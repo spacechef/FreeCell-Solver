@@ -15,6 +15,11 @@ class Kolom(object):
         self.kaarten.append(kaart)
         self.aantal += 1
     
+    def geef_kolom_waarde(self):
+        waarde = 0
+        for kaart in self.kaarten:
+            waarde += kaart.nummer
+        return waarde / 6
     #verwijdert de meegegeven kaart uit de kolom en past self.aantal aan
     def verwijder(self, te_verwijderen_kaart):
         for kaart in self.kaarten:

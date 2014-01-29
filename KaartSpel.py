@@ -28,7 +28,7 @@ class KaartSpel(object):
 
     def maak(self, seed):
         cards = self.deal(seed)
-        seed = int(argv[1]) if len(argv) == 2 else 11982
+#         seed = int(argv[1]) if len(argv) == 2 else 11982
         print "Hand", seed
         l = ["A23456789TJQK"[c / 4] + "KRHS"[c % 4] for c in cards]
         kaarten = []

@@ -37,9 +37,11 @@ def evalueer_kaarten():
         elif kaart.is_freecell(bord) and kaart.kan_naar_een_kolom(bord):
             heuristische_waarde = 70
         elif kaart.kan_naar_een_doelcel(bord.doelcellen):
-            heuristische_waarde = 50 - kaart.diepte(bord)   
+            kolom_en_kaart = bord.vind_kolom_en_kaart(kaart)
+            heuristische_waarde = 50 - kaart.diepte(bord) - kolom_en_kaart[0].geef_kolom_waarde()
         elif kaart.kan_naar_een_kolom(bord):
-            heuristische_waarde = 20 - kaart.diepte(bord)
+            kolom_en_kaart = bord.vind_kolom_en_kaart(kaart)
+            heuristische_waarde = 20 - kaart.diepte(bord) - kolom_en_kaart[0].geef_kolom_waarde()
 
         geevalueerde_kaarten.append([kaart, heuristische_waarde])
     for kaart in geevalueerde_kaarten:
