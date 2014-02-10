@@ -1,20 +1,13 @@
 from Kaart import Kaart
 from Bord import Bord
 from KaartSpel import KaartSpel
+import time
 
 '''
 FreeCell Solver
 Gemaakt op 08/01/2014
 @author Spacechef
 '''
-bord = Bord()
-kaartspel = KaartSpel()
-bord.maak_kolommen()
-seed = int(raw_input('Voer het gewenste spel in (tussen de 1 en de 11982): '))
-kaartspel.maak(seed)
-bord.maak_doel_en_freecellen()
-bord.deel_kaarten(kaartspel)
-bord.druk_af()
 
 #geeft de beschikbare kaarten terug (kaarten waar de speler toegang tot heeft dit hoeft niet een speelbare kaart te zijn)
 def geef_beschikbare_kaarten(diepte):
@@ -44,8 +37,8 @@ def evalueer_kaarten():
             heuristische_waarde = 20 - kaart.diepte(bord) - kolom_en_kaart[0].geef_kolom_waarde()
 
         geevalueerde_kaarten.append([kaart, heuristische_waarde])
-    for kaart in geevalueerde_kaarten:
-         print kaart[0].soort, kaart[0].nummer, 'waarde is:', kaart[1]
+    # for kaart in geevalueerde_kaarten:
+         # print kaart[0].soort, kaart[0].nummer, 'waarde is:', kaart[1]
     return geevalueerde_kaarten
 
 #bepaalt de beste kaart uit de lijst van geevalueerde kaarten en geeft deze terug
@@ -56,7 +49,7 @@ def beste_kaart(geevalueerde_kaarten):
         if geevalueerde_kaart[1] > waarde:
             beste_kaart = geevalueerde_kaart[0]
             waarde = geevalueerde_kaart[1]
-    print 'Beste kaart is:', beste_kaart.nummer, beste_kaart.soort
+    # print 'Beste kaart is:', beste_kaart.nummer, beste_kaart.soort
     return beste_kaart
 
 #kijkt welke zet er gedaan kan worden met de beste_kaart en doet deze zet. Zet vervolgens alle kolommen goed en verwijdert kaarten indien nodig
@@ -65,20 +58,20 @@ def speel_kaart(beste_kaart):
         bord.voeg_toe_aan_doelcel(beste_kaart)
         kolom_en_kaart = bord.vind_kolom_en_kaart(beste_kaart)
         bord.verwijder(beste_kaart, kolom_en_kaart[0])
-        bord.druk_af()
+        # bord.druk_af()
     elif beste_kaart.kan_naar_een_kolom(bord) and beste_kaart.is_direct_speelbaar(bord):
         kolom_en_kaart = bord.vind_kolom_en_kaart(beste_kaart)
         bord.verplaats_naar_een_kolom(beste_kaart)
         bord.verwijder(beste_kaart, kolom_en_kaart[0])
-        bord.druk_af()
+        # bord.druk_af()
     elif beste_kaart.kan_naar_een_doelcel(bord.doelcellen) and beste_kaart.is_freecell(bord):
         bord.voeg_toe_aan_doelcel(beste_kaart)
         bord.verwijder_uit_freecel(beste_kaart)
-        bord.druk_af()
+        # bord.druk_af()
     elif beste_kaart.kan_naar_een_kolom(bord) and beste_kaart.is_freecell(bord):
         bord.verplaats_naar_een_kolom(beste_kaart)
         bord.verwijder_uit_freecel(beste_kaart)
-        bord.druk_af()  
+        # bord.druk_af()
     elif beste_kaart.kan_naar_een_doelcel(bord.doelcellen):
         aantal_bovenliggende_kaarten = beste_kaart.diepte(bord)
         kolom_en_kaart = bord.vind_kolom_en_kaart(beste_kaart)
@@ -91,7 +84,7 @@ def speel_kaart(beste_kaart):
             kolom_en_kaart[0].verwijder(te_verwijderen_kaart)
         bord.voeg_toe_aan_doelcel(beste_kaart)
         bord.verwijder(beste_kaart, kolom_en_kaart[0])
-        bord.druk_af()   
+        # bord.druk_af()
     elif beste_kaart.kan_naar_een_kolom(bord):
         aantal_bovenliggende_kaarten = beste_kaart.diepte(bord)
         kolom_en_kaart = bord.vind_kolom_en_kaart(beste_kaart)
@@ -99,24 +92,91 @@ def speel_kaart(beste_kaart):
         for kaart in kolom_en_kaart[0].kaarten:
             if kolom_en_kaart[0].kaarten.index(kaart) >= kolom_en_kaart[0].aantal - aantal_bovenliggende_kaarten:
                 bord.voeg_toe_aan_freecel(kaart)
-                te_verwijderen_kaarten.append(kaart) 
+                te_verwijderen_kaarten.append(kaart)
         bord.verplaats_naar_een_kolom(beste_kaart)
         for te_verwijderen_kaart in te_verwijderen_kaarten:
             kolom_en_kaart[0].verwijder(te_verwijderen_kaart)
         bord.verwijder(beste_kaart, kolom_en_kaart[0])
-        bord.druk_af()
+        # bord.druk_af()
 
-#houd laatst_gespeelde kaart bij zodat dezelfde kaart niet 2maal gespeeld gaat worden
-laatst_gespeelde_kaart = None           
-zet_mogelijk = True
+games = range(999)
 
-#runned onderstaande functies zolang er een zet mogelijk is
-while zet_mogelijk is True:
-    geevalueerde_kaarten = evalueer_kaarten()
-    de_beste_kaart = beste_kaart(geevalueerde_kaarten)
-    if beste_kaart is None or laatst_gespeelde_kaart == de_beste_kaart:
-        zet_mogelijk = False
-        print 'Spel afgelopen! Aantal weggespeelde kaarten:', bord.geef_aantal_weggespeelde_kaarten()
-        break
-    speel_kaart(de_beste_kaart)
-    laatst_gespeelde_kaart = de_beste_kaart
+l = []
+vastzitlijst = []
+
+for i in games:
+    bord = Bord()
+    kaartspel = KaartSpel()
+    bord.maak_kolommen()
+    # seed = int(raw_input('Voer het gewenste spel in (tussen de 1 en de 11982): '))
+    kaartspel.maak(i)
+    bord.maak_doel_en_freecellen()
+    bord.deel_kaarten(kaartspel)
+    # bord.druk_af()
+    start_time = time.time()
+
+    #houd laatst_gespeelde kaart bij zodat dezelfde kaart niet 2maal gespeeld gaat worden
+    laatst_gespeelde_kaart = None
+    zet_mogelijk = True
+
+    #runned onderstaande functies zolang er een zet mogelijk is
+    while zet_mogelijk is True:
+        elapsed_time = time.time() - start_time
+        if elapsed_time > 1:
+            vastzitlijst.append(i)
+            print 'Spel afgelopen! Aantal weggespeelde kaarten:', bord.geef_aantal_weggespeelde_kaarten()
+            l.append(bord.geef_aantal_weggespeelde_kaarten())
+            break
+        geevalueerde_kaarten = evalueer_kaarten()
+        de_beste_kaart = beste_kaart(geevalueerde_kaarten)
+        if beste_kaart is None or laatst_gespeelde_kaart == de_beste_kaart:
+            zet_mogelijk = False
+            # print 'Hand is:', i
+            print 'Spel afgelopen! Aantal weggespeelde kaarten:', bord.geef_aantal_weggespeelde_kaarten()
+            l.append(bord.geef_aantal_weggespeelde_kaarten())
+            break
+        speel_kaart(de_beste_kaart)
+        laatst_gespeelde_kaart = de_beste_kaart
+
+lijst_met_acht_kaarten_of_meer_weggespeeld = []
+for i in l:
+    if i >= 8:
+        lijst_met_acht_kaarten_of_meer_weggespeeld.append(i)
+
+lijst_met_tien_kaarten_of_meer_weggespeeld = []
+for i in l:
+    if i >= 10:
+        lijst_met_tien_kaarten_of_meer_weggespeeld.append(i)
+
+
+lijst_met_twintig_kaarten_of_meer_weggespeeld = []
+for i in l:
+    if i >= 20:
+        lijst_met_twintig_kaarten_of_meer_weggespeeld.append(i)
+
+
+lijst_met_dertig_kaarten_of_meer_weggespeeld = []
+for i in l:
+    if i >= 30:
+        lijst_met_dertig_kaarten_of_meer_weggespeeld.append(i)
+
+
+lijst_met_veertig_kaarten_of_meer_weggespeeld = []
+for i in l:
+    if i >= 40:
+        lijst_met_veertig_kaarten_of_meer_weggespeeld.append(i)
+
+
+lijst_met_uitgespeelde_spellen = []
+for i in l:
+    if i == 52:
+        lijst_met_uitgespeelde_spellen.append(i)
+
+print 'Gemiddeld aantal kaarten weggespeeld:', float(sum(l))/len(l)
+print 'Percentage spellen met acht kaarten of meer weggespeeld:', float(len(lijst_met_acht_kaarten_of_meer_weggespeeld))/1000
+print 'Percentage spellen met tien kaarten of meer weggespeeld:', float(len(lijst_met_tien_kaarten_of_meer_weggespeeld))/1000
+print 'Percentage spellen met twintig kaarten of meer weggespeeld:', float(len(lijst_met_twintig_kaarten_of_meer_weggespeeld))/1000
+print 'Percentage spellen met dertig kaarten of meer weggespeeld:', float(len(lijst_met_dertig_kaarten_of_meer_weggespeeld))/1000
+print 'Percentage spellen met veertig kaarten of meer weggespeeld:', float(len(lijst_met_veertig_kaarten_of_meer_weggespeeld))/1000
+print 'Percentage uitgespeelde spellen:', float(len(lijst_met_uitgespeelde_spellen))/1000
+print 'Percentage vastgelopen spellen:', float(len(vastzitlijst))/1000
